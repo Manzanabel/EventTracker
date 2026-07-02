@@ -1,12 +1,11 @@
 <template>
-  <div id="app">
-    <navbar></navbar>
-    <my-header></my-header>
-    <router-view></router-view>
-  </div>
+  <AppHeader />
+  <router-view></router-view>
 </template>
 
-<script>
+<script setup lang="ts">
+import AppHeader from './components/AppHeader.vue'
+
 </script>
 
 <style></style>

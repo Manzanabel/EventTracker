@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Formulaire from '@/components/Formulaire.vue'
+import EventList from '@/components/EventList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: '/',
-      component: Formulaire,
+      component: EventList,
     },
+    { path: '/addEvent', 
+      component: Formulaire },
   ],
 })
 
