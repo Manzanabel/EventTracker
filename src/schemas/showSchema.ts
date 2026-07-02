@@ -11,7 +11,7 @@ const showSchema = z.object({
   img: z.string().url(),
   description: z.string().min(10).max(200),
   site: z.string().url(),
-  capacity: z.number().min(0),
+  capacity: z.number().min(1),
 })
 
 export type ShowType = z.infer<typeof showSchema>
