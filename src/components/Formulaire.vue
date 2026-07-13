@@ -3,6 +3,7 @@ import { watch, ref } from 'vue'
 import type { Show } from '@/types/Show'
 import { EVENT_FIELDS as eventInputs, EVENT_TYPES as eventTypes } from '@/constants/eventFields'
 import { useEventStore } from '@/stores/addedEvents'
+import { showSchema } from '@/schemas/showSchema'
 
 const createEmptyShow = (): Show => {
     return {
@@ -22,11 +23,22 @@ const createEmptyShow = (): Show => {
 const newShow = ref<Show>(createEmptyShow())
 const nbCrea = ref(0)
 const stopCreating = ref(false)
+const errors = ref<Partial<Record<keyof Show, string>>>({})
 
 const { addEvent } = useEventStore()
 
 const addShow = () => {
-    addEvent(newShow.value)
+    const result = showSchema.safeParse(newShow.value)
+
+    if (!result.success) {
+        errors.value = Object.fromEntries(
+            result.error.issues.map((issue) => [issue.path[0], issue.message])
+        )
+        return
+    }
+
+    errors.value = {}
+    addEvent(result.data)
     nbCrea.value += 1
     newShow.value = createEmptyShow()
 
@@ -113,6 +125,9 @@ watch(() => newShow.value.isPaid, (isPaid) => {
                                 class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-400 transition-colors" />
                         </template>
 
+                        <p v-if="errors[input.id as keyof Show]" class="text-red-400 text-sm">
+                            {{ errors[input.id as keyof Show] }}
+                        </p>
                     </div>
 
                     <button type="submit"
