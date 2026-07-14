@@ -5,6 +5,7 @@ import type { Show } from '@/types/Show'
 export const useEventStore = defineStore('event', () => {
   const addedEvents = ref<Show[]>([
     {
+      id: 'mock-id-12345',
       title: 'Festival Jazz à Lyon',
       place: 'Halle Tony Garnier',
       address: '20 Place Antonin Perrin, Lyon',
@@ -19,6 +20,7 @@ export const useEventStore = defineStore('event', () => {
       capacity: 500,
     },
     {
+      id: 'mock-id-789654',
       title: 'Atelier Poterie',
       place: 'Maison des Arts',
       address: '5 Rue de la Paix, Lyon',

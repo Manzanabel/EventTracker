@@ -1,4 +1,5 @@
 export interface Show {
+  id: string
   title: string
   place: string
   address: string
