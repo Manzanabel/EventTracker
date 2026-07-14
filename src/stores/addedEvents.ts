@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Show } from '@/types/Show'
+import type { CreateShow, Show } from '@/types/Show'
 
 export const useEventStore = defineStore('event', () => {
   const addedEvents = ref<Show[]>([
@@ -35,8 +35,12 @@ export const useEventStore = defineStore('event', () => {
     },
   ])
 
-  const addEvent = (event: Show) => {
-    addedEvents.value.push(event)
+  const addEvent = (event: CreateShow) => {
+    const newEvent: Show = {
+      ...event,
+      id: crypto.randomUUID(),
+    }
+    addedEvents.value.push(newEvent)
   }
 
   return { addedEvents, addEvent }

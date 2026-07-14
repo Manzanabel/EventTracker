@@ -13,6 +13,8 @@ export interface Show {
   capacity: number
 }
 
+export type CreateShow = Omit<Show, 'id'>
+
 type EventInputType = 'text' | 'radio' | 'number' | 'date' | 'textarea' | 'select' | 'checkbox'
 
 export interface EventFields {
